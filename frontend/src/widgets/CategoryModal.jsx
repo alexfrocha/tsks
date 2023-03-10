@@ -20,7 +20,7 @@ export default function CategoryModal({setSucesso, setErro, actionType, isOpen, 
     }
 
     const createCategory = async () => {
-        const response = await fetch('http://localhost:3001/categories/create', {
+        const response = await fetch('https://api-tsks.herokuapp.com/categories/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export default function CategoryModal({setSucesso, setErro, actionType, isOpen, 
     }
 
     const editCategory = async () => {
-        const response = await fetch(`http://localhost:3001/categories/edit/${category._id}`, {
+        const response = await fetch(`https://api-tsks.herokuapp.com/categories/edit/${category._id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

@@ -26,7 +26,7 @@ export default function TaskModal({ isOpen, onOpen, onClose, actionType, categor
     }
 
     const createTask = async () => {
-        const responseTask = await fetch('http://localhost:3001/tasks/create', {
+        const responseTask = await fetch('https://api-tsks.herokuapp.com/tasks/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

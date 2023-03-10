@@ -60,7 +60,7 @@ export default function Form() {
 
     
         console.log(formValues)
-        const savedResponse = await fetch('http://localhost:3001/auth/register',
+        const savedResponse = await fetch('https://api-tsks.herokuapp.com/auth/register',
             {
                 method: 'POST',
                 body: formData
@@ -87,7 +87,7 @@ export default function Form() {
             "password": formValues.password
         }
 
-        const loggedInResponse = await fetch('http://localhost:3001/auth/login', {
+        const loggedInResponse = await fetch('https://api-tsks.herokuapp.com/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(loginCredentials)

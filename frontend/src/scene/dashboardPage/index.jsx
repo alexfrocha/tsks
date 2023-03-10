@@ -36,7 +36,7 @@ export default function DashboardPage() {
     const handleDisableTask = () => setShowTask(false)
 
     const getCategories = async () => {
-          const categoriesResponse = await fetch(`http://localhost:3001/categories/${cookies.auth}`, {
+          const categoriesResponse = await fetch(`https://api-tsks.herokuapp.com/categories/${cookies.auth}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export default function DashboardPage() {
 
 
     const getTasksByCategoria = async (categoria) => {
-        const tasksResponse = await fetch(`http://localhost:3001/tasks/${categoria._id}`, {
+        const tasksResponse = await fetch(`https://api-tsks.herokuapp.com/tasks/${categoria._id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ export default function DashboardPage() {
     }
 
     const handleDeleteTask = async (task) => {
-        const taskResponse = await fetch(`http://localhost:3001/tasks/delete/${task._id}`, {
+        const taskResponse = await fetch(`https://api-tsks.herokuapp.com/tasks/delete/${task._id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export default function DashboardPage() {
 
 
     const updateTaskMongo = async (task) => {
-        const tasksResponse = await fetch(`http://localhost:3001/tasks/update/${task._id}`, {
+        const tasksResponse = await fetch(`https://api-tsks.herokuapp.com/tasks/update/${task._id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ export default function DashboardPage() {
     }
 
     const handleDeleteCategory = async (category) => {
-        await fetch('http://localhost:3001/categories/delete/' + category._id, {
+        await fetch('https://api-tsks.herokuapp.com/categories/delete/' + category._id, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
