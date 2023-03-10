@@ -5,17 +5,19 @@ import Sphere from '../../widgets/Sphere'
 import { motion } from 'framer-motion'
 import overflow from './overflow.css'
 import { useNavigate } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 
 export default function LandingPage() {
 
     const [isNonMobileScreens] = useMediaQuery('(min-width: 1000px)')
+    const [cookies, setCookie] = useCookies(['auth'])
     const navigate = useNavigate()
 
     return (
         <Box bg='tsks.dark' h='100vh'>
             <Container maxW='container.xl'>
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.4 * 2 }}}>
-                    <Navbar />
+                    <Navbar pageType='landing' />
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 1 * 2 }}}>
@@ -40,8 +42,8 @@ export default function LandingPage() {
                     
                     
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.4 * 2 }}}>
-                        <Heading lineHeight={isNonMobileScreens ? '47px' : '25px'} fontSize={isNonMobileScreens ? '55px' : '30px'} zIndex='10' gap='2px' display='flex' alignItems='flex-end'>
-                            Tsks, apenas tarefas <Sphere size={isNonMobileScreens ? '15px' : '10px'} />
+                        <Heading fontSize={isNonMobileScreens ? '55px' : '30px'} zIndex='10' gap='2px' display='flex' alignItems='flex-end'>
+                            Tsks, apenas tarefas <Box mb='11px'><Sphere size={isNonMobileScreens ? '15px' : '10px'} /></Box>
                         </Heading>
                     </motion.div>
 
@@ -55,7 +57,7 @@ export default function LandingPage() {
 
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.9 * 2 }}}>
                     <ButtonGroup>
-                        <Button px={19} py={3} onClick={() => navigate('/auth')} backdropFilter='blur(5px)' textShadow='1px 1px 5px black'>Vamos começar</Button>
+                        <Button px={19} py={3} onClick={() => cookies.auth ? navigate('/dashboard') : navigate('/auth')} backdropFilter='blur(5px)'>Vamos começar</Button>
                     </ButtonGroup>
                     </motion.div>
                 </Box>

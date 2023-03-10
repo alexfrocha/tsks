@@ -14,18 +14,20 @@ import {
 } from '@chakra-ui/react';
 import theme from './theme';
 import Navbar from './widgets/Navbar';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import LandingPage from './scene/landingPage';
 import { useCookies } from 'react-cookie';
+import AuthPage from './scene/authPage';
 
 function App() {
-  const [cookie, setCookies] = useCookies(['auth'])
+  const [cookies, setCookie] = useCookies(['auth'])
 
   return (
     <BrowserRouter>
       <ChakraProvider theme={theme}>
         <Routes>
           <Route path='/' element={<LandingPage />} />
+          <Route path='/auth' element={cookies.auth ? <Navigate to='/dashboard' /> : <AuthPage />} />
         </Routes>
       </ChakraProvider>
     </BrowserRouter>

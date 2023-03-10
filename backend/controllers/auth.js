@@ -12,11 +12,13 @@ export const register = async (req, res) => {
             picturePath
         } = req.body
 
+        if(!firstName && !lastName) return res.status(404).json({ messageError: 'Não deixe os campos vazios' })
+
         const emailLowerCase = String(email).toLowerCase()
         const someUserWithSameEmail = await User.findOne({ email: emailLowerCase })
-        if(someUserWithSameEmail) return res.status(409).json({ messageError: 'Já existe uma conta criada com esse email' })
+        if(someUserWithSameEmail) return res.status(404).json({ messageError: 'Já existe uma conta criada com esse email' })
 
-        const salt = await bcrypt.genSalt()
+        const salt = await bcrypt.genSalt(10)
         const passwordHash = await bcrypt.hash(password, salt)
         const newUser = new User({
             firstName,
@@ -40,6 +42,8 @@ export const login = async (req, res) => {
             email,
             password
         } = req.body
+
+        if(!email) return res.status(404).json({ messageError: 'Não deixe os campos vazios' })
 
         const emailLowerCase = String(email).toLowerCase()
         const user = await User.findOne({ email: emailLowerCase })
