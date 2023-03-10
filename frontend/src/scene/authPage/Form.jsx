@@ -1,11 +1,13 @@
 import { Alert, AlertIcon, Box, Button, FormControl, Heading, Input, Link, VStack } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import {Formik} from 'formik'
 import * as yup from 'yup'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { motion } from 'framer-motion'
+import { setLogin } from '../../features/homeSlice'
+import { useDispatch } from 'react-redux'
 
 const registerSchema = yup.object().shape({
     firstName: yup.string().required('Campo Obrigatório'),
@@ -45,7 +47,8 @@ export default function Form() {
     })
     const [pageType, setPageType] = useState('login')
     const isLogin = pageType === 'login'
-    const [cookie, setCookie] = useCookies(['auth'])
+    const [cookie, setCookie] = useCookies(['auth', 'token'])
+    const dispatch = useDispatch()
     
 
     const register = async (values, onSubmitProps) => {
@@ -96,7 +99,10 @@ export default function Form() {
             setErro(data.messageError)
             return
         }
+
         if(!data.error) {
+            dispatch(setLogin({ user: data.user}))
+            setCookie('token', data.token, { path: '/' })
             setCookie('auth', data.user._id, { path: '/' })
             setErro('')
             navigate('/dashboard')

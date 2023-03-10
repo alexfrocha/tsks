@@ -5,25 +5,17 @@ const TaskSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    categoriaId: {
+        type: String,
+        required: true
+    },
     description: {
         type: String,
         required: true
     },
-    type: {
-        type: String,
-        default: 'general',
-    },
     completed: {
         type: Boolean,
         default: false
-    },
-    expireDate: {
-        type: String,
-        default: ''
-    },
-    expireTime: {
-        type: String,
-        default: ''
     }
 }, { timestamp: true })
 

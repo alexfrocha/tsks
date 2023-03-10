@@ -18,6 +18,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import LandingPage from './scene/landingPage';
 import { useCookies } from 'react-cookie';
 import AuthPage from './scene/authPage';
+import DashboardPage from './scene/dashboardPage';
 
 function App() {
   const [cookies, setCookie] = useCookies(['auth'])
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route path='/' element={<LandingPage />} />
           <Route path='/auth' element={cookies.auth ? <Navigate to='/dashboard' /> : <AuthPage />} />
+          <Route path='/dashboard' element={cookies.auth ? <DashboardPage /> : <Navigate to='/auth' />} />
         </Routes>
       </ChakraProvider>
     </BrowserRouter>

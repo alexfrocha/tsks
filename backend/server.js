@@ -10,6 +10,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import authRoutes from './routes/auth.js'
 import taskRoutes from './routes/task.js'
+import categoryRoutes from './routes/category.js'
 import { register } from './controllers/auth.js'
 import { verifyToken } from './middleware/auth.js'
 
@@ -27,7 +28,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }))
 
 app.use(morgan('common'))
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
-app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
+app.use(bodyParser.urlencoded({ limit: '30mb', extended: false }))
 app.use(cors())
 app.use('/assets', express.static(__dirname + 'public/assets'))
 
@@ -46,6 +47,7 @@ const upload = multer({ storage })
 app.post('/auth/register', upload.single('picture'), register)
 app.use('/auth', authRoutes)
 app.use('/tasks', verifyToken, taskRoutes)
+app.use('/categories', verifyToken, categoryRoutes)
 
 
 const PORT = process.env.PORT || 6001

@@ -57,7 +57,7 @@ export default function LandingPage() {
 
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.9 * 2 }}}>
                     <ButtonGroup>
-                        <Button px={19} py={3} onClick={() => cookies.auth ? navigate('/dashboard') : navigate('/auth')} backdropFilter='blur(5px)'>Vamos começar</Button>
+                        <Button py={3} onClick={() => cookies.auth ? navigate('/dashboard') : navigate('/auth')} backdropFilter='blur(5px)'>Vamos começar</Button>
                     </ButtonGroup>
                     </motion.div>
                 </Box>
