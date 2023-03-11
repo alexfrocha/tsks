@@ -13,6 +13,7 @@ import TaskModal from '../../widgets/TaskModal'
 import { RiDeleteBack2Fill, RiDeleteBinFill } from 'react-icons/ri'
 
 export default function DashboardPage() {
+    const [isNonMobileScreens] = useMediaQuery("(min-width: 1000px)")
     
     const navigate = useNavigate()
     const [actualCategory, setActualCategory] = useState({})
@@ -29,7 +30,6 @@ export default function DashboardPage() {
     const user = useSelector((state) => state.user)
     const localTasksList = useSelector((state) => state.localTasksList)
     const [localeCategoriesWithTasks, setLocaleCategoriesWithTasks] = useState({})
-    const isNonMobileScreens = useMediaQuery("(max-width: 1000px)")
 
     const [categoriesStatic, setCategoriesStatic] = useState([])
 
@@ -139,7 +139,7 @@ export default function DashboardPage() {
                                 <Heading fontWeight='600' fontFamily='text'>
                                     Categorias
                                 </Heading>
-                                <Wrap spacing={5} mt={10}>
+                                <Wrap spacing={isNonMobileScreens ? 5 : 5} mt={10}>
                                 {erro && (
                                     <Alert status='error' variant='left-accent'>
                                         <AlertIcon />
@@ -154,7 +154,7 @@ export default function DashboardPage() {
                                 )}
                                     {categories.map((category) => (
                                         <WrapItem key={category._id}>
-                                            <Card w='180px' bg='tsks.sidebarDark' h='180px' borderRadius={20} 
+                                            <Card w={isNonMobileScreens ? '180px' : '160px'} h={isNonMobileScreens ? '180px' : '160px'} bg='tsks.sidebarDark' borderRadius={20} 
                                             _hover={{
                                                 cursor: 'pointer',
                                                 bg: 'tsks.lessDark',
@@ -175,8 +175,8 @@ export default function DashboardPage() {
                                                             transform: 'translate(-50%,-50%)'
                                                         }} fontSize='35px' />
                                                     </Box>
-                                                    <Text fontFamily='text' mt={8} fontSize='24px'>{category.name}</Text>
-                                                    <Text fontFamily='text' fontSize='12px' color='whiteAlpha.600'>Registre suas tarefas</Text>
+                                                    <Text fontFamily='text' mt={!isNonMobileScreens ? 3 : 8} fontSize='24px'>{category.name}</Text>
+                                                    <Text fontFamily='text' fontSize={isNonMobileScreens ? '12px' : '11px'} color='whiteAlpha.600'>Registre suas tarefas</Text>
                                                     
                                                 </CardHeader>
                                             </Card>
@@ -190,7 +190,7 @@ export default function DashboardPage() {
                                             border: '5px dashed white',
                                             cursor: 'pointer',
                                             transition: '0.5s'
-                                        }} w='180px' color='tsks.lessDark' border='5px dashed #262A32' borderRadius={20} h='180px'>
+                                        }}  w={isNonMobileScreens ? '180px' : '160px'} h={isNonMobileScreens ? '180px' : '160px'} color='tsks.lessDark' border='5px dashed #262A32' borderRadius={20}>
                                             <MdAddCircle fontSize='30px' />
                                         </Center>
                                     </WrapItem>
