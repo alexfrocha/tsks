@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Box, Button, Card, CardHeader, Center, Checkbox, CircularProgress, Container, Heading, HStack, List, ListIcon, ListItem, Text, useDisclosure, Wrap, WrapItem } from '@chakra-ui/react'
+import { Alert, AlertIcon, Box, Button, Card, CardHeader, Center, Checkbox, CircularProgress, Container, Heading, HStack, List, ListIcon, ListItem, Text, useDisclosure, useMediaQuery, Wrap, WrapItem } from '@chakra-ui/react'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { FaBookOpen } from 'react-icons/fa'
@@ -29,6 +29,7 @@ export default function DashboardPage() {
     const user = useSelector((state) => state.user)
     const localTasksList = useSelector((state) => state.localTasksList)
     const [localeCategoriesWithTasks, setLocaleCategoriesWithTasks] = useState({})
+    const isNonMobileScreens = useMediaQuery("(max-width: 1000px)")
 
     const [categoriesStatic, setCategoriesStatic] = useState([])
 
@@ -130,9 +131,8 @@ export default function DashboardPage() {
         <Box  bg='tsks.dashboardBg' flex={1}>
             <Navbar pageType='dashboard' />
             <Box display='flex'>
-                <Sidebar setPageType={setPageType} setActualCategory={setActualCategory} categories={categories} />
                 <Box w='100%' zIndex={4} h='100vh' overflow={'scroll'}>
-                    <Container px='14rem' maxW='container.xl'>
+                    <Container maxW='container.xl'>
                         <Box mt={'3rem'}>
                             {isGeneral ? (
                                 <>
