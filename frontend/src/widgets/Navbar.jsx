@@ -4,13 +4,14 @@ import { useCookies } from 'react-cookie'
 import {useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {MdDashboard, MdAddCircle, MdDns} from "react-icons/md"
-import {AiOutlineUser} from 'react-icons/ai'
+import {AiOutlineLogout, AiOutlineUser} from 'react-icons/ai'
+import { setLogout } from '../features/homeSlice'
 
 
 export default function Navbar({ pageType }) {
     const navigate = useNavigate()
     const [isNonMobileScreens] = useMediaQuery('(min-width: 1000px)')
-    const [cookies, setCookie] = useCookies(['auth'])
+    const [cookies, setCookie, removeCookie] = useCookies(['auth'])
     const isDashboard = pageType === 'dashboard'
     const user = useSelector((state) => state.user)
 
@@ -38,13 +39,23 @@ export default function Navbar({ pageType }) {
                     <List display='flex' alignItems='center'>
                         <Tooltip label={`${user.firstName} ${user.lastName}`} bg='tsks.dark' color='white'>
                             <Avatar 
+                                marginRight={5}
                                 _hover={{ cursor: 'pointer' }} 
-                                onClick={() => navigate(`/profile/${cookies.auth}`)} 
                                 bg='tomato' 
                                 size='sm' 
                                 src={user.picturePath ? user.picturePath : undefined} 
                                 icon={!user.picturePath ? <AiOutlineUser fontSize='20px' /> : undefined} 
                             />
+                        </Tooltip>
+                        <Tooltip label={'Sair'} bg='tsks.dark' color='white'>
+                            <Button onClick={() => {
+                                setLogout()
+                                removeCookie('auth', { path: '/' })
+                                removeCookie('token', { path: '/' })
+                                navigate('/')
+                            }}>
+                                <AiOutlineLogout />
+                            </Button>
                         </Tooltip>
                     </List>
                 </>

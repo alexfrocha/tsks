@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useCookies } from "react-cookie";
+
 
 export const homeSlice = createSlice({
     name: 'home',
@@ -31,9 +33,12 @@ export const homeSlice = createSlice({
         },
         update: (state, action = { payload: { text: 'a' } }) => {
             state.localTasksList.push(action.payload.text)
+        },
+        setLogout: (state, action) => {
+            state.user = null
         }
     }
 })
 
-export const { setCategories, setTasks, setLogin, update, addTask, updateTasks } = homeSlice.actions
+export const { setCategories, setTasks, setLogin, setLogout, update, addTask, updateTasks } = homeSlice.actions
 export default homeSlice.reducer
